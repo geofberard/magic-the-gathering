@@ -1,50 +1,48 @@
-var webpack = require('webpack');
-
-module.exports = {
-    entry: "./src/index.js",
-    output: {
-        path: __dirname + '/dist',
-        filename: 'index.js',
-        library: 'ReactContainerBoilerplate',
-        libraryTarget: 'umd',
-    },
-    externals: [
-        {
-            react: {
-                root: 'React',
-                commonjs2: 'react',
-                commonjs: 'react',
-                amd: 'react',
+module.exports = (env, argv) => ({
+  entry: __dirname + "/app/main.js",
+  output: {
+    path: __dirname,
+    filename: "index.js"
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(t|j)sx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader'
+        }
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
+      },
+      {
+        test: /\.less$/,
+        use: ["style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              config: {path: __dirname, ctx: argv},
+              sourceMap: argv.mode !== "production",
             },
-        },
-        {
-            'react-dom': {
-                root: 'ReactDOM',
-                commonjs2: 'react-dom',
-                commonjs: 'react-dom',
-                amd: 'react-dom',
-            },
-        },
-    ],
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'react']
-                }
-            },
-            {
-                test: /\.less$/,
-                loader: "style!css!autoprefixer!less"
-            },
-        ]
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-        })
+          },
+          "less-loader"]
+      }
     ]
-}
+  },
+  resolve: {
+    modules: ['node_modules'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.less', '.css'],
+  },
+  devtool: 'source-map'
+});
