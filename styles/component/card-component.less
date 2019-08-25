@@ -1,4 +1,20 @@
 .CardComponent {
     margin: 10px;
     display: inline;
+    transition: transform 0.5s ease-in-out;
+    transform-origin: top left;
+
+    &:last-child{
+        transform-origin: top right;
+    }
+
+    img {
+        width: 160px;
+    }
+
+    &.highlighted {
+        transform: scale(1.6);
+    }
+
+
 }
