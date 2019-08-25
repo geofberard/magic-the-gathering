@@ -1,8 +1,7 @@
-import {Card} from "./Card";
 import {CardSequence} from "./CardSequence";
 
-export interface Deck {
+export class Deck {
     label:string;
     cards: CardSequence[];
-    reserve?: Card[];
+    reserve?: CardSequence;
 }

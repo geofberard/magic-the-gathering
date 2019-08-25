@@ -7,7 +7,8 @@
     "test": "karma start karma.conf.js",
     "test:project": "jest --ci --reporters=default --reporters=jest-junit",
     "start": "webpack-dev-server --config webpack.config.js --mode development",
-    "build": "webpack -p --config webpack.config.js"
+    "build": "webpack -p --config webpack.config.js",
+    "deploy": "webpack --mode production && git add . && git commit -m Packaging && git push origin HEAD:gh-pages --force  && git reset HEAD~1 --hard"
   },
   "author": "Geoffrey Berard <geoffrey.berard@gmail.com>",
   "license": "MIT",

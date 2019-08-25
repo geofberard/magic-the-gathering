@@ -1,7 +1,7 @@
 import {Card} from "./Card";
-import {Deck} from "./Deck";
 import {CardSequence} from "./CardSequence";
-import {PLAINS} from "./Cards";
+
+type wtf = Array<Card | Array<Card>>;
 
 export class DeckBuilder {
     columns: number;
@@ -14,8 +14,11 @@ export class DeckBuilder {
         return new DeckBuilder(columns);
     }
 
-    sequence(composition: CardSequence): CardSequence[] {
-        console.log( composition);
-        return Array.from(Array(this.columns).keys()).map(() => composition);
+    sequence(composition: wtf): CardSequence[] {
+        return Array.from(Array(this.columns).keys())
+            .map((index) => composition
+                .map((card: Card| Card[]) => (card instanceof Array) ? getCardFromArray(card,index): card));
     }
 };
+
+const getCardFromArray = (cards: Card[], index: number) => cards[index < cards.length ? index : index % cards.length];

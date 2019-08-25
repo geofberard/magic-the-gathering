@@ -9,9 +9,15 @@ interface DeckComponentProps {
 
 export const DeckComponent: React.FunctionComponent<DeckComponentProps> = ({deck}) => (
     <div className={"DeckComponent"}>
-        <div className={"DeckComponent-title"}>{deck.label}</div>
+        <div className={"DeckComponent-title"}>Setup</div>
         <div className={"CardContainer-cards"}>
             {deck.cards.map((sequence, index) => <CardSequenceComponent cardSequence={sequence} key={index}/>)}
         </div>
+        {!deck.reserve ? null : (
+            <>
+                <div className={"DeckComponent-title"}>Réserve</div>
+                <CardSequenceComponent cardSequence={deck.reserve}/>
+            </>
+        )}
     </div>
 );
