@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import "../styles/card.less"
+import "../../styles/component/card.less"
 
 interface MultiCardProps {
     ids: string[];
